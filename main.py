@@ -15,11 +15,24 @@ from pygame.locals import (
     QUIT,
 )
 
-clock = pygame.time.Clock()
+def draw_screen():
+    screen.fill(('BLACK'))
 
-# Initiate player. Right now, this is just a rectangle.
-player = Player()
-ball = Ball()
+def obj_update(pressed_keys):
+    # Update the player sprite based on user keypresses
+    player.update(pressed_keys)
+    opponent.update(pressed_keys)
+
+def collide_check(obj1, obj2):
+    if pygame.sprite.spritecollideany(obj1, obj2):
+        if obj1 == player:
+            ball.update(1)
+        else:
+            ball.update(2)
+    else:
+        ball.update(0)
+    
+FPS = 60
 
 # Initialize pygame
 pygame.init()
@@ -28,17 +41,29 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Pong")
 
+# Instantiate. Right now, this is just a rectangle.
+player = Player()
+ball = Ball()
+opponent = Opponent()
+
 balls = pygame.sprite.Group()
-balls.add(ball)
 all_sprites = pygame.sprite.Group()
+opponents = pygame.sprite.Group()
+balls.add(ball)
+opponents.add(opponent)
+all_sprites.add(opponents)
 all_sprites.add(player)
 all_sprites.add(ball)
 
 
 def main():
+    clock = pygame.time.Clock()
+    
     running = True
 
     while running:
+        clock.tick(FPS)
+
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
@@ -46,27 +71,24 @@ def main():
             elif event.type == QUIT:
                 running = False
         
-        clock.tick(60)
-
-        screen.fill((0, 0, 0))
+        draw_screen()
 
         # Get the set of keys pressed and check for user input
         pressed_keys = pygame.key.get_pressed()
 
-        # Update the player sprite based on user keypresses
-        player.update(pressed_keys)
+        obj_update(pressed_keys)
 
         # Draw all sprites
         for entity in all_sprites:
             screen.blit(entity.surf, entity.rect)
 
-        pygame.display.flip()
+        collide_check(player, balls)
+        collide_check(opponent, balls)
 
-        if pygame.sprite.spritecollideany(player, balls):
-            # change the ball direction
-            ball.update(1)
-        else:
-            ball.update(0)
+        if len(balls) == 0:
+            running = False
+
+        pygame.display.flip()
 
     pygame.quit()
 
