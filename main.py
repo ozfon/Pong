@@ -3,7 +3,6 @@
 
 from game import play
 from titlescreen import start
-import os
 
 if __name__ == "__main__": #only runs main function if this file is ran directly
     #initialize
