@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import pygame
 import time
 from settings import SCREEN_HEIGHT,SCREEN_WIDTH,Player,Ball,Opponent,FPS

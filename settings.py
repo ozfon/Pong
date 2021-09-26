@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         super(Player, self).__init__()
         self.bar_height = 75
         self.bar_width = 25
-        self.surf =  pygame.image.load(os.path.join('Pong/Assets', 'Player_bar.png'))
+        self.surf =  pygame.image.load(os.path.join('Assets', 'Player_bar.png'))
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.bar_width, SCREEN_HEIGHT//2-self.bar_height//2)
 
@@ -45,7 +45,7 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super(Ball, self).__init__()
         self.diameter = 10
-        self.surf = pygame.image.load(os.path.join('Pong/Assets', 'ball.png'))
+        self.surf = pygame.image.load(os.path.join('Assets', 'ball.png'))
         self.rect = self.surf.get_rect(
             center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         )
@@ -93,7 +93,7 @@ class Opponent(pygame.sprite.Sprite):
         super(Opponent, self).__init__()
         self.bar_height = 75
         self.bar_width = 25
-        self.surf = pygame.image.load(os.path.join('Pong/Assets', 'Opponent_bar.png'))
+        self.surf = pygame.image.load(os.path.join('Assets', 'Opponent_bar.png'))
         self.rect = self.surf.get_rect()
         self.rect.move_ip(SCREEN_WIDTH-self.bar_width*2, SCREEN_HEIGHT/2-self.bar_height/2)
         self.speed = 7
