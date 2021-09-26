@@ -2,6 +2,7 @@
 
 import pygame
 import random
+import os
 
 # Define constants for the screen width and height
 SCREEN_WIDTH = 800
@@ -11,8 +12,6 @@ FPS = 60
 from pygame.locals import (
     K_UP,
     K_DOWN,
-    K_w,
-    K_s,
 )
 
 #Create the player
@@ -21,8 +20,7 @@ class Player(pygame.sprite.Sprite):
         super(Player, self).__init__()
         self.bar_height = 75
         self.bar_width = 25
-        self.surf = pygame.Surface((self.bar_width, self.bar_height))
-        self.surf.fill(('BLUE'))
+        self.surf =  pygame.image.load(os.path.join('Pong/Assets', 'Player_bar.png'))
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.bar_width, SCREEN_HEIGHT//2-self.bar_height//2)
 
@@ -47,8 +45,7 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super(Ball, self).__init__()
         self.diameter = 10
-        self.surf = pygame.Surface((self.diameter, self.diameter))
-        self.surf.fill(('GREEN'))
+        self.surf = pygame.image.load(os.path.join('Pong/Assets', 'ball.png'))
         self.rect = self.surf.get_rect(
             center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         )
@@ -96,8 +93,7 @@ class Opponent(pygame.sprite.Sprite):
         super(Opponent, self).__init__()
         self.bar_height = 75
         self.bar_width = 25
-        self.surf = pygame.Surface((self.bar_width, self.bar_height))
-        self.surf.fill(('RED'))
+        self.surf = pygame.image.load(os.path.join('Pong/Assets', 'Opponent_bar.png'))
         self.rect = self.surf.get_rect()
         self.rect.move_ip(SCREEN_WIDTH-self.bar_width*2, SCREEN_HEIGHT/2-self.bar_height/2)
         self.speed = 7
