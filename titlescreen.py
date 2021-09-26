@@ -21,6 +21,11 @@ def start():
     insRect = instruction.get_rect()
     insRect.center = (SCREEN_WIDTH // 2,SCREEN_HEIGHT // 3)
     screen.blit(instruction, insRect)
+    controls = titlefont.render('UP key - move up & DOWN key - move down', True, ('WHITE'))
+    controlsRect = controls.get_rect()
+    controlsRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5)
+    screen.blit(controls, controlsRect)
+
 
     # Instantiate
     player = Player()
